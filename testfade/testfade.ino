@@ -3,12 +3,12 @@ int led_uv = 10;
 int led_oj = 11;
 int led_pk = 12;
 
-int value;
+int value, value2, value3;
 long time=0;
 
-int periode = 2000;
-int displace = 500;
-int displace2 =100;
+int periode = 4000;
+int displace = 1300; //oj
+int displace2 =2600; //pk
 
 //Analog Button 
 int btn = 3;
@@ -74,9 +74,7 @@ void loop() {
  // put breath code here scrub
       time = millis();
       value = 128+127*cos(2*PI/periode*time);
-//      value2 = 128+127*cos(2*PI/periode*(displace-time));
       analogWrite(led_uv, value);           // sets the value (range from 0 to 255) 
-//      analogWrite(ledpin2, value2);           // sets the value (range from 0 to 255)
       break;
       case 6:
  //     Breathe ("oj")   
@@ -165,9 +163,11 @@ void loop() {
  // put something cool here scrub
       time = millis();
       value = 128+127*cos(2*PI/periode*time);
-      analogWrite(led_uv, value + 100);
-      analogWrite(led_oj, value -100); 
-      analogWrite(led_pk, value);     
+      value2 = 128+127*cos(2*PI/periode*(displace-time));
+      value3 = 128+127*cos(2*PI/periode*(displace2-time));
+      analogWrite(led_uv, value);
+      analogWrite(led_oj, value2); 
+      analogWrite(led_pk, value3);    
       break;
       default:
       mode = 1;
